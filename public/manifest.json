@@ -1,0 +1,16 @@
+{
+  "name": "Timeregistrering",
+  "short_name": "Timer",
+  "description": "Multi-user timeregistrering",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#F8FAF9",
+  "theme_color": "#0F3A2B",
+  "icons": [
+    {
+      "src": "/icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml"
+    }
+  ]
+}
