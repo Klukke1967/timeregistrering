@@ -12,9 +12,18 @@ export type Profile = {
   created_at?: string;
 };
 
+export type Assistant = {
+  id: string;
+  manager_id: string;
+  full_name: string;
+  created_at?: string;
+};
+
 export type TimeEntry = {
   id?: string;
   user_id: string;
+  assistant_id?: string | null;
+  worker_name?: string | null;
   entry_date: string; // YYYY-MM-DD
   hours: number;
   project_task: string;
@@ -23,5 +32,8 @@ export type TimeEntry = {
   profiles?: {
     full_name: string;
     role: string;
+  } | null;
+  assistants?: {
+    full_name: string;
   } | null;
 };

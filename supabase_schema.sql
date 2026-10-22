@@ -96,13 +96,44 @@ create policy "Time entries delete policy" on public.time_entries
   for delete using (auth.uid() = user_id or public.is_admin());
 
 
--- 5. SYNKRONISER EKSISTERENDE BRUGERE OG SÆT KLAUS SOM ADMIN
+-- 6. ASSISTENTER / MEDHJÆLPERE (Uden eget login - administreres af f.eks. Emma)
 -- ------------------------------------------------------------
-insert into public.profiles (id, full_name, role)
-select 
-  id, 
-  coalesce(raw_user_meta_data->>'full_name', split_part(email, '@', 1)),
-  case when email = 'klaus.kryger@gmail.com' then 'admin' else 'user' end
-from auth.users
-on conflict (id) do update set
-  role = case when excluded.id in (select id from auth.users where email = 'klaus.kryger@gmail.com') then 'admin' else profiles.role end;
+create table if not exists public.assistants (
+  id uuid default gen_random_uuid() primary key,
+  manager_id uuid references public.profiles(id) on delete cascade not null,
+  full_name text not null,
+  created_at timestamptz default now()
+);
+
+-- Tilføj assistant_id og worker_name kolonner på time_entries
+alter table public.time_entries add column if not exists assistant_id uuid references public.assistants(id) on delete cascade;
+alter table public.time_entries add column if not exists worker_name text;
+
+-- Indeksering
+create index if not exists idx_assistants_manager on public.assistants(manager_id);
+create index if not exists idx_time_entries_assistant on public.time_entries(assistant_id);
+
+-- Row Level Security (RLS) for assistants
+alter table public.assistants enable row level security;
+
+drop policy if exists "Assistants select policy" on public.assistants;
+create policy "Assistants select policy" on public.assistants
+  for select using (auth.uid() = manager_id or public.is_admin());
+
+drop policy if exists "Assistants insert policy" on public.assistants;
+create policy "Assistants insert policy" on public.assistants
+  for insert with check (auth.uid() = manager_id or public.is_admin());
+
+drop policy if exists "Assistants update policy" on public.assistants;
+create policy "Assistants update policy" on public.assistants
+  for update using (auth.uid() = manager_id or public.is_admin());
+
+drop policy if exists "Assistants delete policy" on public.assistants;
+create policy "Assistants delete policy" on public.assistants
+  for delete using (auth.uid() = manager_id or public.is_admin());
+
+-- Rettigheder til Supabase API
+grant all on public.assistants to authenticated, anon;
+grant all on public.time_entries to authenticated, anon;
+grant all on public.profiles to authenticated, anon;
+
