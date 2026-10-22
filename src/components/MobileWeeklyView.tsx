@@ -314,33 +314,33 @@ export default function MobileWeeklyView({ userProfile }: MobileWeeklyViewProps)
   return (
     <div className="max-w-md mx-auto pb-24">
       {/* VÆLGER FOR MEDARBEJDER / ASSISTENT */}
-      <div className="bg-white rounded-2xl shadow-sm border border-forest-100 p-2.5 mb-3">
-        <div className="flex items-center justify-between px-1 mb-2">
-          <div className="flex items-center gap-1.5 text-xs font-semibold text-forest-800">
-            <Users className="w-3.5 h-3.5 text-forest-600" />
-            <span>Registrering for:</span>
+      <div className="bg-white rounded-2xl shadow-sm border border-forest-200 p-3 mb-3">
+        <div className="flex items-center justify-between px-1 mb-2.5">
+          <div className="flex items-center gap-1.5 text-xs font-bold text-forest-900">
+            <Users className="w-4 h-4 text-forest-700" strokeWidth={2.5} />
+            <span>Registrerer timer for:</span>
           </div>
           <button
             type="button"
             onClick={() => setIsManageAssistantsOpen(true)}
-            className="text-[11px] font-medium text-forest-700 bg-forest-50 hover:bg-forest-100 px-2 py-0.5 rounded-md border border-forest-200 flex items-center gap-1 transition"
+            className="text-xs font-bold text-white bg-forest-900 hover:bg-forest-800 px-3 py-1 rounded-xl shadow-xs flex items-center gap-1.5 transition active:scale-95"
           >
-            <Plus className="w-3 h-3" />
-            <span>Assistent</span>
+            <Plus className="w-3.5 h-3.5 text-emerald-400" strokeWidth={3} />
+            <span>+ Assistent</span>
           </button>
         </div>
 
-        <div className="flex items-center gap-1.5 overflow-x-auto pb-0.5 no-scrollbar">
+        <div className="flex items-center gap-2 overflow-x-auto pb-1 no-scrollbar">
           <button
             type="button"
             onClick={() => setActiveWorkerId('self')}
-            className={`px-3 py-1.5 rounded-xl text-xs font-semibold shrink-0 transition flex items-center gap-1.5 ${
+            className={`px-3.5 py-2 rounded-xl text-xs font-bold shrink-0 transition flex items-center gap-2 ${
               activeWorkerId === 'self'
-                ? 'bg-forest-900 text-white shadow-sm'
-                : 'bg-forest-50 text-forest-900 hover:bg-forest-100 border border-forest-100'
+                ? 'bg-forest-900 text-white shadow-md'
+                : 'bg-forest-50 text-forest-900 hover:bg-forest-100 border border-forest-200'
             }`}
           >
-            <User className="w-3.5 h-3.5" />
+            <User className="w-4 h-4" strokeWidth={2.5} />
             <span>{userProfile.full_name} (Mig)</span>
           </button>
 
@@ -349,13 +349,13 @@ export default function MobileWeeklyView({ userProfile }: MobileWeeklyViewProps)
               key={ast.id}
               type="button"
               onClick={() => setActiveWorkerId(ast.id)}
-              className={`px-3 py-1.5 rounded-xl text-xs font-semibold shrink-0 transition flex items-center gap-1.5 ${
+              className={`px-3.5 py-2 rounded-xl text-xs font-bold shrink-0 transition flex items-center gap-2 ${
                 activeWorkerId === ast.id
-                  ? 'bg-forest-900 text-white shadow-sm'
-                  : 'bg-emerald-50 text-emerald-900 hover:bg-emerald-100 border border-emerald-200'
+                  ? 'bg-forest-900 text-white shadow-md'
+                  : 'bg-emerald-50 text-emerald-950 hover:bg-emerald-100 border border-emerald-300'
               }`}
             >
-              <UserCheck className="w-3.5 h-3.5 text-emerald-500" />
+              <UserCheck className="w-4 h-4 text-emerald-600" strokeWidth={2.5} />
               <span>{ast.full_name}</span>
             </button>
           ))}
@@ -363,50 +363,50 @@ export default function MobileWeeklyView({ userProfile }: MobileWeeklyViewProps)
       </div>
 
       {/* Top Bar for Ugens navigation */}
-      <div className="bg-white rounded-2xl shadow-sm border border-forest-100 p-4 mb-4">
+      <div className="bg-white rounded-2xl shadow-sm border border-forest-200 p-4 mb-4">
         <div className="flex items-center justify-between mb-3">
           <button
             onClick={handlePrevWeek}
-            className="p-2 rounded-xl text-forest-900 hover:bg-forest-50 active:bg-forest-100 transition-colors"
+            className="w-10 h-10 rounded-xl bg-forest-900 text-white hover:bg-forest-800 active:bg-forest-950 flex items-center justify-center shadow-md transition active:scale-95"
             title="Forrige uge"
           >
-            <ChevronLeft className="w-5 h-5" />
+            <ChevronLeft className="w-6 h-6 text-white" strokeWidth={3} />
           </button>
           
           <div className="text-center">
-            <span className="text-xs font-semibold uppercase tracking-wider text-forest-600 block">
+            <span className="text-xs font-bold uppercase tracking-wider text-forest-700 block">
               {format(weekDays[0], 'd. MMM', { locale: da })} — {format(weekDays[6], 'd. MMM yyyy', { locale: da })}
             </span>
-            <div className="flex items-center justify-center gap-2 mt-0.5">
-              <span className="text-lg font-bold text-forest-900">Uge {weekNumber}</span>
+            <div className="flex items-center justify-center gap-2 mt-1">
+              <span className="text-xl font-extrabold text-forest-950">Uge {weekNumber}</span>
               <button
                 onClick={handleCurrentWeek}
-                className="text-[11px] font-medium bg-forest-50 text-forest-700 px-2 py-0.5 rounded-full hover:bg-forest-100 border border-forest-200"
+                className="text-xs font-bold bg-forest-100 text-forest-900 px-2.5 py-0.5 rounded-full hover:bg-forest-200 border border-forest-300 transition"
               >
                 I dag
               </button>
             </div>
-            <div className="text-[11px] text-forest-600 mt-1 font-medium">
-              Vises for: <span className="font-bold text-forest-900">{activeWorkerName}</span>
+            <div className="text-xs text-forest-800 mt-1 font-semibold">
+              Vises for: <span className="font-extrabold text-forest-950">{activeWorkerName}</span>
             </div>
           </div>
 
           <button
             onClick={handleNextWeek}
-            className="p-2 rounded-xl text-forest-900 hover:bg-forest-50 active:bg-forest-100 transition-colors"
+            className="w-10 h-10 rounded-xl bg-forest-900 text-white hover:bg-forest-800 active:bg-forest-950 flex items-center justify-center shadow-md transition active:scale-95"
             title="Næste uge"
           >
-            <ChevronRight className="w-5 h-5" />
+            <ChevronRight className="w-6 h-6 text-white" strokeWidth={3} />
           </button>
         </div>
 
         {/* Ugetotal kort */}
-        <div className="bg-gradient-to-r from-forest-900 to-forest-800 text-white rounded-xl p-3 flex items-center justify-between shadow-inner">
-          <div className="flex items-center gap-2">
-            <Clock className="w-5 h-5 text-forest-300" />
-            <span className="text-xs font-medium text-forest-100">Ugens samlede timer ({activeWorkerName})</span>
+        <div className="bg-gradient-to-r from-forest-900 via-forest-850 to-forest-800 text-white rounded-xl p-3.5 flex items-center justify-between shadow-md">
+          <div className="flex items-center gap-2.5">
+            <Clock className="w-5 h-5 text-emerald-400" strokeWidth={2.5} />
+            <span className="text-xs font-bold text-forest-100">Ugens samlede timer ({activeWorkerName})</span>
           </div>
-          <span className="text-xl font-extrabold tracking-tight">
+          <span className="text-2xl font-black tracking-tight text-white">
             {totalWeekHours.toLocaleString('da-DK', { minimumFractionDigits: 1, maximumFractionDigits: 2 })} t
           </span>
         </div>
@@ -432,43 +432,45 @@ export default function MobileWeeklyView({ userProfile }: MobileWeeklyViewProps)
               key={dateStr}
               className={`bg-white rounded-2xl border transition-all ${
                 isToday 
-                  ? 'border-forest-600 shadow-sm ring-1 ring-forest-500/20' 
-                  : 'border-forest-100 hover:border-forest-200'
+                  ? 'border-forest-600 shadow-md ring-2 ring-forest-500/30' 
+                  : 'border-forest-200 hover:border-forest-300 shadow-xs'
               }`}
             >
               {/* Dagens Header */}
-              <div className="p-3.5 flex items-center justify-between border-b border-forest-50">
-                <div className="flex items-center gap-2">
-                  <div className={`w-8 h-8 rounded-xl flex items-center justify-center font-bold text-xs ${
-                    isToday ? 'bg-forest-900 text-white' : 'bg-forest-50 text-forest-900'
+              <div className="p-3.5 flex items-center justify-between border-b border-forest-100 bg-forest-50/30">
+                <div className="flex items-center gap-2.5">
+                  <div className={`w-9 h-9 rounded-xl flex items-center justify-center font-extrabold text-sm shadow-xs ${
+                    isToday ? 'bg-forest-900 text-white' : 'bg-forest-100 text-forest-950 border border-forest-200'
                   }`}>
                     {format(dayDate, 'd')}
                   </div>
                   <div>
-                    <h3 className="text-sm font-bold text-forest-900 capitalize">
+                    <h3 className="text-sm font-extrabold text-forest-950 capitalize">
                       {format(dayDate, 'EEEE', { locale: da })}
                     </h3>
-                    <span className="text-[11px] text-gray-500">
+                    <span className="text-xs font-medium text-gray-500">
                       {format(dayDate, 'd. MMMM', { locale: da })}
                     </span>
                   </div>
                 </div>
 
                 <div className="flex items-center gap-2">
-                  <span className={`text-xs font-bold px-2 py-0.5 rounded-lg ${
+                  <span className={`text-xs font-extrabold px-2.5 py-1 rounded-lg border ${
                     dayTotalHours > 0 
-                      ? 'bg-forest-100 text-forest-900 font-extrabold' 
-                      : 'text-gray-400 bg-gray-50'
+                      ? 'bg-emerald-100 text-emerald-950 border-emerald-300 font-black' 
+                      : 'text-gray-500 bg-gray-100 border-gray-200'
                   }`}>
                     {dayTotalHours > 0 ? `${dayTotalHours} t` : '0 t'}
                   </span>
 
+                  {/* TYDELIG HØJKONTRAST TILFØJ-KNAP */}
                   <button
                     onClick={() => openAddModal(dayDate)}
-                    className="p-1.5 rounded-lg bg-forest-50 text-forest-900 hover:bg-forest-100 active:scale-95 transition"
+                    className="px-3 py-1.5 rounded-xl bg-forest-900 hover:bg-forest-800 active:scale-95 text-white flex items-center gap-1.5 text-xs font-bold shadow-sm transition"
                     title={`Tilføj timer for ${format(dayDate, 'EEEE')}`}
                   >
-                    <Plus className="w-4 h-4" />
+                    <Plus className="w-4 h-4 text-emerald-400" strokeWidth={3} />
+                    <span>Tilføj</span>
                   </button>
                 </div>
               </div>
@@ -476,7 +478,7 @@ export default function MobileWeeklyView({ userProfile }: MobileWeeklyViewProps)
               {/* Dagens tidsregistreringer */}
               <div className="p-3">
                 {dayEntries.length === 0 ? (
-                  <p className="text-[12px] text-gray-400 italic py-1 text-center">
+                  <p className="text-xs text-gray-400 italic py-1.5 text-center font-medium">
                     Ingen timer registreret
                   </p>
                 ) : (
@@ -485,7 +487,7 @@ export default function MobileWeeklyView({ userProfile }: MobileWeeklyViewProps)
                       <div
                         key={entry.id}
                         onClick={() => openEditModal(entry)}
-                        className="flex items-start justify-between p-2.5 rounded-xl bg-forest-50/60 hover:bg-forest-50 active:bg-forest-100/80 cursor-pointer border border-forest-100/80 transition"
+                        className="flex items-start justify-between p-3 rounded-xl bg-forest-50/70 hover:bg-forest-100/70 active:bg-forest-100 cursor-pointer border border-forest-200/80 transition shadow-xs"
                       >
                         <div className="flex-1 min-w-0 pr-2">
                           <div className="flex items-center gap-1.5">
@@ -494,17 +496,19 @@ export default function MobileWeeklyView({ userProfile }: MobileWeeklyViewProps)
                             </span>
                           </div>
                           {entry.note && (
-                            <p className="text-[11px] text-gray-600 mt-0.5 line-clamp-2">
+                            <p className="text-xs text-gray-600 mt-1 line-clamp-2">
                               {entry.note}
                             </p>
                           )}
                         </div>
 
-                        <div className="flex items-center gap-1.5 shrink-0">
-                          <span className="text-xs font-extrabold text-forest-900 bg-white px-2 py-0.5 rounded-md border border-forest-200">
+                        <div className="flex items-center gap-2 shrink-0">
+                          <span className="text-xs font-black text-forest-950 bg-white px-2.5 py-1 rounded-lg border border-forest-200 shadow-xs">
                             {Number(entry.hours)} t
                           </span>
-                          <Edit2 className="w-3.5 h-3.5 text-forest-600 opacity-60" />
+                          <div className="w-7 h-7 rounded-lg bg-forest-200/80 text-forest-900 flex items-center justify-center">
+                            <Edit2 className="w-3.5 h-3.5" strokeWidth={2.5} />
+                          </div>
                         </div>
                       </div>
                     ))}
@@ -520,59 +524,59 @@ export default function MobileWeeklyView({ userProfile }: MobileWeeklyViewProps)
       <div className="fixed bottom-6 left-0 right-0 max-w-md mx-auto px-4 pointer-events-none z-30">
         <button
           onClick={() => openAddModal()}
-          className="w-full pointer-events-auto bg-forest-900 hover:bg-forest-800 active:scale-[0.98] text-white font-bold py-3.5 px-6 rounded-2xl shadow-xl flex items-center justify-center gap-2 transition-all border border-forest-700/50"
+          className="w-full pointer-events-auto bg-forest-900 hover:bg-forest-800 active:scale-[0.98] text-white font-extrabold text-base py-4 px-6 rounded-2xl shadow-2xl flex items-center justify-center gap-2.5 transition-all border border-forest-700"
         >
-          <Plus className="w-5 h-5 text-forest-300" />
+          <Plus className="w-5 h-5 text-emerald-400" strokeWidth={3} />
           <span>Registrér timer ({activeWorkerName})</span>
         </button>
       </div>
 
       {/* MODAL / BOTTOM SHEET FOR TIDSREGISTRERING */}
       {isModalOpen && (
-        <div className="fixed inset-0 z-50 bg-black/40 backdrop-blur-sm flex items-end sm:items-center justify-center p-0 sm:p-4">
+        <div className="fixed inset-0 z-50 bg-black/50 backdrop-blur-xs flex items-end sm:items-center justify-center p-0 sm:p-4">
           <div className="bg-white w-full max-w-md rounded-t-3xl sm:rounded-2xl p-6 shadow-2xl max-h-[90vh] overflow-y-auto animate-in fade-in slide-in-from-bottom duration-200">
             <div className="flex items-center justify-between pb-3 border-b border-gray-100 mb-4">
               <div>
                 <h3 className="text-lg font-bold text-forest-900">
                   {editingEntry ? 'Rediger registrering' : 'Ny tidsregistrering'}
                 </h3>
-                <p className="text-xs text-forest-600 mt-0.5">
-                  Registreres for: <span className="font-bold">{activeWorkerName}</span>
+                <p className="text-xs text-forest-700 mt-0.5 font-semibold">
+                  Registreres for: <span className="font-extrabold text-forest-950">{activeWorkerName}</span>
                 </p>
               </div>
               <button
                 onClick={() => setIsModalOpen(false)}
-                className="p-1 rounded-full text-gray-400 hover:text-gray-600 hover:bg-gray-100"
+                className="w-8 h-8 rounded-full bg-gray-100 hover:bg-gray-200 text-gray-700 flex items-center justify-center transition"
               >
-                <X className="w-5 h-5" />
+                <X className="w-5 h-5" strokeWidth={2.5} />
               </button>
             </div>
 
             <form onSubmit={handleSave} className="space-y-4">
               {/* Datovælger */}
               <div>
-                <label className="block text-xs font-semibold text-gray-700 mb-1">
+                <label className="block text-xs font-bold text-gray-800 mb-1">
                   Dato
                 </label>
                 <div className="relative">
-                  <CalendarIcon className="w-4 h-4 text-gray-400 absolute left-3 top-3" />
+                  <CalendarIcon className="w-5 h-5 text-forest-700 absolute left-3 top-2.5" strokeWidth={2.2} />
                   <input
                     type="date"
                     required
                     value={formDate}
                     onChange={(e) => setFormDate(e.target.value)}
-                    className="w-full pl-9 pr-3 py-2 text-sm bg-gray-50 border border-gray-200 rounded-xl focus:bg-white focus:outline-none focus:ring-2 focus:ring-forest-500"
+                    className="w-full pl-10 pr-3 py-2.5 text-sm bg-gray-50 border border-gray-300 rounded-xl focus:bg-white focus:outline-none focus:ring-2 focus:ring-forest-500 font-medium"
                   />
                 </div>
               </div>
 
               {/* Timer */}
               <div>
-                <label className="block text-xs font-semibold text-gray-700 mb-1">
+                <label className="block text-xs font-bold text-gray-800 mb-1">
                   Antal timer (f.eks. 7.5 eller 4)
                 </label>
                 <div className="relative">
-                  <Clock className="w-4 h-4 text-gray-400 absolute left-3 top-3" />
+                  <Clock className="w-5 h-5 text-forest-700 absolute left-3 top-2.5" strokeWidth={2.2} />
                   <input
                     type="number"
                     step="0.25"
@@ -582,14 +586,14 @@ export default function MobileWeeklyView({ userProfile }: MobileWeeklyViewProps)
                     placeholder="7.5"
                     value={formHours}
                     onChange={(e) => setFormHours(e.target.value)}
-                    className="w-full pl-9 pr-3 py-2 text-sm bg-gray-50 border border-gray-200 rounded-xl focus:bg-white focus:outline-none focus:ring-2 focus:ring-forest-500"
+                    className="w-full pl-10 pr-3 py-2.5 text-sm bg-gray-50 border border-gray-300 rounded-xl focus:bg-white focus:outline-none focus:ring-2 focus:ring-forest-500 font-bold"
                   />
                 </div>
               </div>
 
               {/* Opgave / Projekt */}
               <div>
-                <label className="block text-xs font-semibold text-gray-700 mb-1">
+                <label className="block text-xs font-bold text-gray-800 mb-1">
                   Opgave / Arbejde
                 </label>
                 <input
@@ -598,7 +602,7 @@ export default function MobileWeeklyView({ userProfile }: MobileWeeklyViewProps)
                   placeholder="Skriv hvad der er udført..."
                   value={customProject}
                   onChange={(e) => setCustomProject(e.target.value)}
-                  className="w-full px-3 py-2 text-sm bg-gray-50 border border-gray-200 rounded-xl focus:bg-white focus:outline-none focus:ring-2 focus:ring-forest-500 mb-2"
+                  className="w-full px-3.5 py-2.5 text-sm bg-gray-50 border border-gray-300 rounded-xl focus:bg-white focus:outline-none focus:ring-2 focus:ring-forest-500 mb-2 font-medium"
                 />
 
                 <select
@@ -609,7 +613,7 @@ export default function MobileWeeklyView({ userProfile }: MobileWeeklyViewProps)
                       setCustomProject(e.target.value);
                     }
                   }}
-                  className="w-full px-3 py-2 text-xs bg-gray-100/70 border border-gray-200 rounded-xl text-gray-600 focus:outline-none"
+                  className="w-full px-3 py-2 text-xs bg-gray-100 border border-gray-300 rounded-xl text-gray-700 focus:outline-none font-medium"
                 >
                   <option value="Andet (skriv selv)">Vælg evt. standardopgave herunder...</option>
                   {COMMON_PROJECTS.filter((p) => p !== 'Andet (skriv selv)').map((p) => (
@@ -620,7 +624,7 @@ export default function MobileWeeklyView({ userProfile }: MobileWeeklyViewProps)
 
               {/* Note */}
               <div>
-                <label className="block text-xs font-semibold text-gray-700 mb-1">
+                <label className="block text-xs font-bold text-gray-800 mb-1">
                   Note / Bemærkning (valgfri)
                 </label>
                 <textarea
@@ -628,7 +632,7 @@ export default function MobileWeeklyView({ userProfile }: MobileWeeklyViewProps)
                   placeholder="Evt. ekstra detaljer..."
                   value={formNote}
                   onChange={(e) => setFormNote(e.target.value)}
-                  className="w-full px-3 py-2 text-sm bg-gray-50 border border-gray-200 rounded-xl focus:bg-white focus:outline-none focus:ring-2 focus:ring-forest-500 resize-none"
+                  className="w-full px-3.5 py-2.5 text-sm bg-gray-50 border border-gray-300 rounded-xl focus:bg-white focus:outline-none focus:ring-2 focus:ring-forest-500 resize-none font-medium"
                 />
               </div>
 
@@ -638,21 +642,21 @@ export default function MobileWeeklyView({ userProfile }: MobileWeeklyViewProps)
                   <button
                     type="button"
                     onClick={() => handleDelete(editingEntry.id!)}
-                    className="p-3 text-red-600 bg-red-50 hover:bg-red-100 rounded-xl transition"
+                    className="p-3 text-red-600 bg-red-100 hover:bg-red-200 rounded-xl transition"
                     title="Slet registrering"
                   >
-                    <Trash2 className="w-5 h-5" />
+                    <Trash2 className="w-5 h-5" strokeWidth={2.5} />
                   </button>
                 )}
 
                 <button
                   type="submit"
                   disabled={saving}
-                  className="flex-1 bg-forest-900 hover:bg-forest-800 text-white font-bold py-3 rounded-xl transition flex items-center justify-center gap-2 shadow-md disabled:opacity-50"
+                  className="flex-1 bg-forest-900 hover:bg-forest-800 active:scale-[0.98] text-white font-extrabold py-3.5 rounded-xl transition flex items-center justify-center gap-2 shadow-lg disabled:opacity-50"
                 >
                   {saveSuccess ? (
                     <>
-                      <Check className="w-5 h-5 text-emerald-400" />
+                      <Check className="w-5 h-5 text-emerald-400" strokeWidth={3} />
                       <span>Gemt!</span>
                     </>
                   ) : saving ? (
@@ -669,28 +673,28 @@ export default function MobileWeeklyView({ userProfile }: MobileWeeklyViewProps)
 
       {/* MODAL TIL HÅNDTERING AF ASSISTENTER (UDEN LOGIN) */}
       {isManageAssistantsOpen && (
-        <div className="fixed inset-0 z-50 bg-black/40 backdrop-blur-sm flex items-end sm:items-center justify-center p-0 sm:p-4">
+        <div className="fixed inset-0 z-50 bg-black/50 backdrop-blur-xs flex items-end sm:items-center justify-center p-0 sm:p-4">
           <div className="bg-white w-full max-w-md rounded-t-3xl sm:rounded-2xl p-6 shadow-2xl max-h-[85vh] overflow-y-auto animate-in fade-in slide-in-from-bottom duration-200">
             <div className="flex items-center justify-between pb-3 border-b border-gray-100 mb-4">
               <div>
                 <h3 className="text-lg font-bold text-forest-900">
                   Medhjælpere & Assistenter
                 </h3>
-                <p className="text-xs text-gray-500 mt-0.5">
+                <p className="text-xs text-gray-600 mt-0.5">
                   Opret assistenter uden eget login, så du kan indtaste deres timer
                 </p>
               </div>
               <button
                 onClick={() => setIsManageAssistantsOpen(false)}
-                className="p-1 rounded-full text-gray-400 hover:text-gray-600 hover:bg-gray-100"
+                className="w-8 h-8 rounded-full bg-gray-100 hover:bg-gray-200 text-gray-700 flex items-center justify-center transition"
               >
-                <X className="w-5 h-5" />
+                <X className="w-5 h-5" strokeWidth={2.5} />
               </button>
             </div>
 
             {/* Opret ny assistent form */}
-            <form onSubmit={handleCreateAssistant} className="space-y-3 mb-6 bg-forest-50/60 p-4 rounded-2xl border border-forest-100">
-              <label className="block text-xs font-bold text-forest-900">
+            <form onSubmit={handleCreateAssistant} className="space-y-3 mb-6 bg-forest-50 p-4 rounded-2xl border border-forest-200">
+              <label className="block text-xs font-bold text-forest-950">
                 Tilføj ny assistent / medhjælper
               </label>
               <div className="flex gap-2">
@@ -700,12 +704,12 @@ export default function MobileWeeklyView({ userProfile }: MobileWeeklyViewProps)
                   placeholder="Navn (f.eks. Lars Hansen)"
                   value={newAssistantName}
                   onChange={(e) => setNewAssistantName(e.target.value)}
-                  className="flex-1 px-3 py-2 text-sm bg-white border border-forest-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-forest-500"
+                  className="flex-1 px-3.5 py-2.5 text-sm bg-white border border-forest-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-forest-500 font-medium"
                 />
                 <button
                   type="submit"
                   disabled={assistantActionLoading}
-                  className="px-4 py-2 bg-forest-900 hover:bg-forest-800 text-white font-bold text-xs rounded-xl shadow-sm transition disabled:opacity-50"
+                  className="px-4 py-2.5 bg-forest-900 hover:bg-forest-800 text-white font-extrabold text-xs rounded-xl shadow-md transition disabled:opacity-50"
                 >
                   Opret
                 </button>
@@ -727,15 +731,17 @@ export default function MobileWeeklyView({ userProfile }: MobileWeeklyViewProps)
                   {assistants.map((ast) => (
                     <div
                       key={ast.id}
-                      className="flex items-center justify-between p-3 rounded-xl border border-gray-100 bg-gray-50/70"
+                      className="flex items-center justify-between p-3.5 rounded-xl border border-gray-200 bg-gray-50/80 shadow-xs"
                     >
-                      <div className="flex items-center gap-2.5">
-                        <UserCheck className="w-4 h-4 text-emerald-600" />
+                      <div className="flex items-center gap-3">
+                        <div className="w-8 h-8 rounded-lg bg-emerald-100 text-emerald-900 flex items-center justify-center font-bold">
+                          <UserCheck className="w-4 h-4 text-emerald-700" strokeWidth={2.5} />
+                        </div>
                         <div>
-                          <span className="text-sm font-bold text-gray-800 block">
+                          <span className="text-sm font-bold text-gray-900 block">
                             {ast.full_name}
                           </span>
-                          <span className="text-[11px] text-gray-500">
+                          <span className="text-xs text-gray-500">
                             Styres af {userProfile.full_name}
                           </span>
                         </div>
@@ -744,10 +750,10 @@ export default function MobileWeeklyView({ userProfile }: MobileWeeklyViewProps)
                       <button
                         type="button"
                         onClick={() => handleDeleteAssistant(ast.id, ast.full_name)}
-                        className="p-1.5 text-red-500 hover:text-red-700 hover:bg-red-50 rounded-lg transition"
+                        className="p-2 text-red-600 hover:text-red-800 hover:bg-red-50 rounded-lg transition"
                         title="Slet assistent"
                       >
-                        <Trash2 className="w-4 h-4" />
+                        <Trash2 className="w-4 h-4" strokeWidth={2.2} />
                       </button>
                     </div>
                   ))}
