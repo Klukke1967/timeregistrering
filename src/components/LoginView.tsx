@@ -2,7 +2,8 @@
 
 import React, { useState } from 'react';
 import { supabase } from '@/lib/supabaseClient';
-import { Clock, Lock, Mail, User, AlertCircle, ArrowRight, CheckCircle2 } from 'lucide-react';
+import { Clock, Lock, Mail, User, AlertCircle, ArrowRight, CheckCircle2, RefreshCw } from 'lucide-react';
+import AutoUpdateToast from '@/components/AutoUpdateToast';
 
 interface LoginViewProps {
   onSuccess: () => void;
@@ -184,11 +185,27 @@ export default function LoginView({ onSuccess }: LoginViewProps) {
           </form>
         </div>
 
-        {/* Hjælpetekst til test */}
-        <div className="mt-6 text-center text-xs text-gray-500">
-          Forbundet til Supabase (<span className="font-mono text-gray-600">lvrpyjoidfybgqbuzuqc</span>)
+        {/* Genindlæs app knap & status */}
+        <div className="mt-6 flex flex-col items-center gap-2">
+          <button
+            type="button"
+            onClick={() => {
+              const url = new URL(window.location.href);
+              url.searchParams.set('v', String(Date.now()));
+              window.location.href = url.toString();
+            }}
+            className="inline-flex items-center gap-1.5 text-xs text-gray-500 hover:text-forest-900 bg-white/60 hover:bg-white px-3 py-1.5 rounded-lg border border-gray-200/60 transition-all shadow-2xs"
+            title="Tving genindlæsning af appen"
+          >
+            <RefreshCw className="w-3.5 h-3.5 text-forest-700" />
+            <span>Genindlæs app (omgår cache)</span>
+          </button>
+          <div className="text-[11px] text-gray-400">
+            Forbundet til Supabase (<span className="font-mono text-gray-500">lvrpyjoidfybgqbuzuqc</span>)
+          </div>
         </div>
       </div>
+      <AutoUpdateToast />
     </div>
   );
 }

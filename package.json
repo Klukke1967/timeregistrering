@@ -4,6 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "next dev -p 5090",
+    "prebuild": "node scripts/generate-version.js",
     "build": "next build",
     "start": "python3 -m http.server 5090 --directory out"
   },

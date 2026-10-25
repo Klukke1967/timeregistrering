@@ -5,6 +5,7 @@ import { supabase, Profile } from '@/lib/supabaseClient';
 import LoginView from '@/components/LoginView';
 import MobileWeeklyView from '@/components/MobileWeeklyView';
 import DesktopDashboard from '@/components/DesktopDashboard';
+import AutoUpdateToast from '@/components/AutoUpdateToast';
 import { 
   Clock, 
   LogOut, 
@@ -14,7 +15,8 @@ import {
   User, 
   Database, 
   Copy, 
-  Check 
+  Check,
+  RefreshCw
 } from 'lucide-react';
 
 export default function Home() {
@@ -24,6 +26,14 @@ export default function Home() {
   const [activeTab, setActiveTab] = useState<'mobile' | 'desktop'>('mobile');
   const [missingTables, setMissingTables] = useState(false);
   const [copiedSql, setCopiedSql] = useState(false);
+  const [isRefreshing, setIsRefreshing] = useState(false);
+
+  const handleForceRefresh = () => {
+    setIsRefreshing(true);
+    const url = new URL(window.location.href);
+    url.searchParams.set('v', String(Date.now()));
+    window.location.href = url.toString();
+  };
 
   // Lyt på Auth ændringer
   useEffect(() => {
@@ -148,8 +158,22 @@ export default function Home() {
             </button>
           </div>
 
-          {/* Bruger Badge & Log ud */}
-          <div className="flex items-center gap-3">
+          {/* Bruger Badge, Genindlæs & Log ud */}
+          <div className="flex items-center gap-2 sm:gap-3">
+            {/* Manuel Genindlæs-knap (omgår browser cache) */}
+            <button
+              onClick={handleForceRefresh}
+              disabled={isRefreshing}
+              className={`flex items-center gap-1.5 px-2.5 py-1.5 rounded-xl border border-gray-200 bg-gray-50/80 hover:bg-forest-50 hover:border-forest-200 text-gray-700 hover:text-forest-900 transition-all text-xs font-semibold shadow-2xs ${
+                isRefreshing ? 'opacity-70 cursor-wait' : ''
+              }`}
+              title="Tving genindlæsning og tjek for opdateringer"
+              aria-label="Opdater app"
+            >
+              <RefreshCw className={`w-3.5 h-3.5 text-forest-700 ${isRefreshing ? 'animate-spin' : ''}`} />
+              <span className="hidden md:inline">Opdater</span>
+            </button>
+
             <div className="hidden sm:flex items-center gap-2 pl-3 border-l border-gray-200">
               <div className="w-8 h-8 rounded-full bg-forest-100 text-forest-800 font-bold flex items-center justify-center text-xs">
                 {userProfile.full_name?.charAt(0).toUpperCase()}
@@ -211,6 +235,9 @@ export default function Home() {
           <DesktopDashboard currentUser={userProfile} />
         )}
       </main>
+
+      {/* Automatisk opdaterings-toast */}
+      <AutoUpdateToast />
     </div>
   );
 }
